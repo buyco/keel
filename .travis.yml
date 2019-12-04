@@ -1,0 +1,24 @@
+language: go
+
+go:
+  - 1.11.x
+  - 1.12.x
+  - 1.13.x
+  - gotip
+
+
+env:
+  global:
+    - GO111MODULE=on
+
+install:
+  - go get ./...
+  - go get github.com/onsi/gomega
+  - go install github.com/onsi/ginkgo/ginkgo
+  - export PATH=$PATH:$HOME/gopath/bin
+
+script: $HOME/gopath/bin/ginkgo -r --randomizeAllSpecs --randomizeSuites --race --trace --cover
+
+after_success:
+  - bash tools/codecov/format_coverage.sh
+  - bash <(curl -s https://codecov.io/bash) || echo "codecov send failed"
