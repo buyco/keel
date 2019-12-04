@@ -1,5 +1,6 @@
 package app
 
+// Generic Application error
 type Error struct {
 	Message      string        `json:"message"`
 	Details      interface{}   `json:"details"`
@@ -7,3 +8,11 @@ type Error struct {
 	Code         string        `json:"code"`
 }
 
+func FormatAppError(msg, code, desc string, details interface{}) *Error {
+	return &Error{
+		Message: msg,
+		Details: details,
+		Description: desc,
+		Code: code,
+	}
+}
