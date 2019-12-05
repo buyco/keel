@@ -13,4 +13,5 @@ require (
 	github.com/thoas/go-funk v0.5.0
 	github.com/tidwall/gjson v1.3.5
 	github.com/tidwall/sjson v1.0.4
+	golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f // indirect
 )

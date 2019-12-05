@@ -6,6 +6,7 @@ import (
 	"reflect"
 )
 
+// DeleteValueFromStruct filters struct properties
 // Solution taken from Sarath Sadasivan Pillai => https://sarathsp.com/
 // Modified for our needs
 func DeleteValueFromStruct(key string, object interface{}) error {

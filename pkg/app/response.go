@@ -11,46 +11,50 @@ import (
 	"strconv"
 )
 
+// Response if an interface to get HTTP code
 type Response interface {
-	GetHttpCode() int
+	GetHTTPCode() int
 }
 
-// API Error response structure
-type ErrorApiResponse struct {
+// ErrorAPIResponse is an Error response struct
+type ErrorAPIResponse struct {
 	*Error
-	HttpResponse *HttpResponse `json:"http_response"`
+	HTTPResponse *HTTPResponse `json:"http_response"`
 }
 
-func (ear *ErrorApiResponse) GetHttpCode() int {
-	return ear.HttpResponse.Code
+// GetHTTPCode return HTTP code
+func (ear *ErrorAPIResponse) GetHTTPCode() int {
+	return ear.HTTPResponse.Code
 }
 
-// API Success response structure
-type SuccessApiResponse struct {
+// SuccessAPIResponse is a Success response struct
+type SuccessAPIResponse struct {
 	Data         interface{}   `json:"data"`
-	HttpResponse *HttpResponse `json:"http_response"`
+	HTTPResponse *HTTPResponse `json:"http_response"`
 }
 
-func (sar *SuccessApiResponse) GetHttpCode() int {
-	return sar.HttpResponse.Code
+// GetHTTPCode return HTTP code
+func (sar *SuccessAPIResponse) GetHTTPCode() int {
+	return sar.HTTPResponse.Code
 }
 
-type HttpResponse struct {
+// HTTPResponse is a light HTTP response struct
+type HTTPResponse struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
-// Error handler for Gorilla mux router
-func ErrorJSONHandler(message *ErrorApiResponse) func(w http.ResponseWriter, r *http.Request) {
+// ErrorJSONHandler handle error for Gorilla mux router
+func ErrorJSONHandler(message *ErrorAPIResponse) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		HandleJSONResponse(w, message, nil)
 	}
 }
 
-// Use response interface to format response to JSON
+// HandleJSONResponse handle JSON API response
 func HandleJSONResponse(w http.ResponseWriter, data Response, refFields []string, filters ...string) {
 	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(data.GetHttpCode())
+	w.WriteHeader(data.GetHTTPCode())
 	output, _ := json.Marshal(data)
 	if len(filters) > 0 {
 		output = FilterResponseJSONData(output, refFields, filters)
@@ -59,28 +63,29 @@ func HandleJSONResponse(w http.ResponseWriter, data Response, refFields []string
 	w.Write(output)
 }
 
-// Helper function to generate error response
-func FormatApiError(err *Error, httpCode int) *ErrorApiResponse {
-	return &ErrorApiResponse{
+// FormatAPIError is a helper function to generate error response
+func FormatAPIError(err *Error, httpCode int) *ErrorAPIResponse {
+	return &ErrorAPIResponse{
 		Error: err,
-		HttpResponse: &HttpResponse{
+		HTTPResponse: &HTTPResponse{
 			Message: http.StatusText(httpCode),
 			Code:    httpCode,
 		},
 	}
 }
 
-// Helper function to generate success response
-func FormatApiSuccess(data interface{}, httpCode int) *SuccessApiResponse {
-	return &SuccessApiResponse{
+// FormatAPISuccess is a helper function to generate success response
+func FormatAPISuccess(data interface{}, httpCode int) *SuccessAPIResponse {
+	return &SuccessAPIResponse{
 		Data: data,
-		HttpResponse: &HttpResponse{
+		HTTPResponse: &HTTPResponse{
 			Message: http.StatusText(httpCode),
 			Code:    httpCode,
 		},
 	}
 }
 
+// FilterResponseJSONData filters fields from JSON
 func FilterResponseJSONData(data []byte, refFields, fields []string) []byte {
 	filteredFields := utils.SliceDiff(refFields, fields)
 	for _, field := range filteredFields {

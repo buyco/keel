@@ -1,6 +1,6 @@
 package app
 
-// Generic Application error
+// Error is a generic Application error struct
 type Error struct {
 	Message     string      `json:"message"`
 	Details     interface{} `json:"details"`
@@ -8,6 +8,7 @@ type Error struct {
 	Code        string      `json:"code"`
 }
 
+// FormatAppError generates a new Error struct from params
 func FormatAppError(msg, code, desc string, details interface{}) *Error {
 	return &Error{
 		Message:     msg,

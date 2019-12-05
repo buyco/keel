@@ -5,10 +5,12 @@ import (
 	"fmt"
 )
 
+// ErrorPrintf returns go error from formater
 func ErrorPrintf(str string, args ...interface{}) error {
-	return errors.New(fmt.Sprintf(str, args...))
+	return fmt.Errorf(str, args...)
 }
 
+// ErrorPrint returns error from string
 func ErrorPrint(str string) error {
 	return errors.New(str)
 }

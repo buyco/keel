@@ -5,6 +5,7 @@ import (
 	"reflect"
 )
 
+// InArray searches for a value from interface
 func InArray(needle interface{}, haystack interface{}) (bool, int) {
 	var exists = false
 	var index = -1
@@ -24,7 +25,7 @@ func InArray(needle interface{}, haystack interface{}) (bool, int) {
 	return exists, index
 }
 
-// Search value in slice
+// StringInSlice searches value in slice
 func StringInSlice(searchVal string, list []string) bool {
 	for _, elt := range list {
 		if elt == searchVal {
@@ -34,6 +35,7 @@ func StringInSlice(searchVal string, list []string) bool {
 	return false
 }
 
+// SliceDiff returns a diff between two slice
 func SliceDiff(refKeys, toDelete []string) []string {
 	toDelete = funk.Uniq(toDelete).([]string)
 	tmpCompare := make(map[string]struct{}, len(toDelete))

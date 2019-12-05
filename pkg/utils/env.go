@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// Load envs from file
+// LoadEnvFile loads env var from file
 func LoadEnvFile(envFile string, runningEnv string) error {
 	if funk.Contains([]string{"development", "test"}, runningEnv) {
 		path, err := os.Getwd()

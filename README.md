@@ -11,6 +11,5 @@ $ export GO111MODULE=on
 $ go get ./...
 $ go get github.com/onsi/gomega
 $ go install github.com/onsi/ginkgo/ginkgo
-$ go install github.com/joho/godotenv/cmd/godotenv
 $ ginkgo -r --randomizeAllSpecs --randomizeSuites --race --trace
 ```

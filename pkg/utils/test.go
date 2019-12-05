@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// CaptureStdout is used to get what is logged
 func CaptureStdout(f func()) string {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
