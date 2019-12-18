@@ -1,4 +1,4 @@
-package utils_test
+package helper_test
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	. "github.com/buyco/keel/pkg/utils"
+	. "github.com/buyco/keel/pkg/helper"
 )
 
 var _ = Describe("Request", func() {
