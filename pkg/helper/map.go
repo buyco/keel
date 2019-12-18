@@ -1,4 +1,4 @@
-package utils
+package helper
 
 // CopyMap copies a map in a new one
 func CopyMap(originalMap map[string]interface{}) map[string]interface{} {

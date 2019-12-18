@@ -1,11 +1,11 @@
-package utils_test
+package helper_test
 
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	log "github.com/sirupsen/logrus"
 
-	. "github.com/buyco/keel/pkg/utils"
+	. "github.com/buyco/keel/pkg/helper"
 )
 
 var _ = Describe("Test", func() {

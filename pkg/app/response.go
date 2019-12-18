@@ -3,7 +3,7 @@ package app
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/buyco/keel/pkg/utils"
+	"github.com/buyco/keel/pkg/helper"
 	log "github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
@@ -87,7 +87,7 @@ func FormatAPISuccess(data interface{}, httpCode int) *SuccessAPIResponse {
 
 // FilterResponseJSONData filters fields from JSON
 func FilterResponseJSONData(data []byte, refFields, fields []string) []byte {
-	filteredFields := utils.SliceDiff(refFields, fields)
+	filteredFields := helper.SliceDiff(refFields, fields)
 	for _, field := range filteredFields {
 		result := gjson.GetBytes(data, fmt.Sprintf("data.#.%s", field))
 		if len(result.Array()) > 0 {
