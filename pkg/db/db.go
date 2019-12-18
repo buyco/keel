@@ -3,6 +3,8 @@ package db
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"strings"
+
 	// Needed by GORM
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	log "github.com/sirupsen/logrus"
@@ -66,6 +68,36 @@ func (d *Database) DropDB(dbName string) error {
 	db := d.DbHandler.Exec(fmt.Sprintf("DROP DATABASE %s;", dbName))
 	if db.Error != nil {
 		log.Errorf("Unable to drop db [%s]", dbName)
+		return db.Error
+	}
+	return nil
+}
+
+// CreateEnum creates enum in database
+func (d *Database) CreateEnum(enumName string, values ...string) error {
+	db := d.DbHandler.Exec(fmt.Sprintf("CREATE TYPE %s AS ENUM(%s);", enumName, strings.Join(values, ",")))
+	if db.Error != nil {
+		log.Errorf("Unable to create enum in db [%s]", enumName)
+		return db.Error
+	}
+	return nil
+}
+
+// UpdateEnum updates enum in database
+func (d *Database) UpdateEnum(enumName, value string) error {
+	db := d.DbHandler.Exec(fmt.Sprintf("ALTER TYPE %s ADD VALUE %s;", enumName, value))
+	if db.Error != nil {
+		log.Errorf("Unable to update enum in db [%s] with value [%s]", enumName, value)
+		return db.Error
+	}
+	return nil
+}
+
+// DropEnum deletes enum in database
+func (d *Database) DropEnum(enumName string) error {
+	db := d.DbHandler.Exec(fmt.Sprintf("DROP TYPE %s;", enumName))
+	if db.Error != nil {
+		log.Errorf("Unable to drop enum in db [%s]", enumName)
 		return db.Error
 	}
 	return nil
