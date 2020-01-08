@@ -75,7 +75,7 @@ func (d *Database) DropDB(dbName string) error {
 
 // CreateEnum creates enum in database
 func (d *Database) CreateEnum(enumName string, values []string) error {
-	db := d.DbHandler.Exec(fmt.Sprintf("CREATE TYPE %s AS ENUM(%s);", enumName, strings.Join(values, ",")))
+	db := d.DbHandler.Exec(fmt.Sprintf("CREATE TYPE %s AS ENUM('%s');", enumName, strings.Join(values, "','")))
 	if db.Error != nil {
 		log.Errorf("Unable to create enum in db [%s]", enumName)
 		return db.Error
@@ -85,7 +85,7 @@ func (d *Database) CreateEnum(enumName string, values []string) error {
 
 // UpdateEnum updates enum in database
 func (d *Database) UpdateEnum(enumName, value string) error {
-	db := d.DbHandler.Exec(fmt.Sprintf("ALTER TYPE %s ADD VALUE %s;", enumName, value))
+	db := d.DbHandler.Exec(fmt.Sprintf("ALTER TYPE %s ADD VALUE '%s';", enumName, value))
 	if db.Error != nil {
 		log.Errorf("Unable to update enum in db [%s] with value [%s]", enumName, value)
 		return db.Error
