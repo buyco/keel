@@ -74,7 +74,7 @@ func (d *Database) DropDB(dbName string) error {
 }
 
 // CreateEnum creates enum in database
-func (d *Database) CreateEnum(enumName string, values ...string) error {
+func (d *Database) CreateEnum(enumName string, values []string) error {
 	db := d.DbHandler.Exec(fmt.Sprintf("CREATE TYPE %s AS ENUM(%s);", enumName, strings.Join(values, ",")))
 	if db.Error != nil {
 		log.Errorf("Unable to create enum in db [%s]", enumName)
