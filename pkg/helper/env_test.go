@@ -13,23 +13,9 @@ var _ = Describe("Env", func() {
 
 	Context("With allowed environment", func() {
 
-		It("should fail to load non-existent file", func() {
-			stdout := CaptureStdout(func() { err = LoadEnvFile("foo", "development") })
-			Expect(stdout).To(BeEmpty())
-			Expect(err).To(HaveOccurred())
-		})
-
 		It("should load env file", func() {
-			stdout := CaptureStdout(func() { err = LoadEnvFile("../../internal/tests/.env-test", "development") })
+			stdout := CaptureStdout(func() { err = LoadEnvFile("development") })
 			Expect(stdout).To(BeEmpty())
-			Expect(err).ToNot(HaveOccurred())
-		})
-	})
-
-	Context("With not allowed environment", func() {
-
-		It("should not load non-existent file", func() {
-			err = LoadEnvFile("foo", "bar")
 			Expect(err).ToNot(HaveOccurred())
 		})
 	})

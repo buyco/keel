@@ -1,23 +1,27 @@
 package helper
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
-	"github.com/thoas/go-funk"
 	"os"
 )
 
 // LoadEnvFile loads env var from file
-func LoadEnvFile(envFile string, runningEnv string) error {
-	if funk.Contains([]string{"development", "test"}, runningEnv) {
+func LoadEnvFile(env string) error {
 		path, err := os.Getwd()
 		if err != nil {
 			return ErrorPrint("Error finding current directory")
 		}
-		err = godotenv.Load(fmt.Sprintf("%s/%s", path, envFile))
-		if err != nil {
-			return ErrorPrint("Error loading environment file")
-		}
+
+	if "" == env {
+		env = "development"
 	}
+
+	godotenv.Load(path + "/" + ".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(path + "/" + ".env.local")
+	}
+	godotenv.Load(path + "/" + ".env." + env)
+	godotenv.Load(path + "/.env")
+
 	return nil
 }
