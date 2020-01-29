@@ -7,10 +7,10 @@ import (
 
 // LoadEnvFile loads env var from file
 func LoadEnvFile(env string) error {
-		path, err := os.Getwd()
-		if err != nil {
-			return ErrorPrint("Error finding current directory")
-		}
+	path, err := os.Getwd()
+	if err != nil {
+		return ErrorPrint("Error finding current directory")
+	}
 
 	if "" == env {
 		env = "development"
