@@ -1,6 +1,7 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"strings"
@@ -121,7 +122,7 @@ func (d *Database) WithLimitAndOffset(limit uint, offset uint) func(db *gorm.DB)
 	}
 }
 
-// WithIds is a query scope function to include given ids
+// WithIds is a query scope function to include given IDs (integer IDs)
 func (d *Database) WithIds(ids []uint, tableName string) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Where(tableName+".id in (?)", ids)
@@ -132,5 +133,40 @@ func (d *Database) WithIds(ids []uint, tableName string) func(db *gorm.DB) *gorm
 func (d *Database) WithNotIds(ids []uint, tableName string) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Where(tableName+".id not in (?)", ids)
+	}
+}
+
+// WithIDs is a query scope to include the given IDs (string IDs)
+func (d *Database) WithIDs(tableName string, ids []string) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where(tableName+".id in (?)", ids)
+	}
+}
+
+// WithStartingAfter is a query scope for organization ID
+func (d *Database) WithOrgID(tableName string, id uint) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where(tableName+".org_id = ?", id)
+	}
+}
+
+// WithStartingAfter is a query scope for external IDs
+func (d *Database) WithExternalIDs(tableName string, externalIDs []sql.NullString) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where(tableName+".external_id in (?)", externalIDs)
+	}
+}
+
+// WithStartingAfter is a query scope for cursors
+func (d *Database) WithStartingAfter(tableName string, limit uint, after string) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where(tableName+".id > ?", after).Limit(limit)
+	}
+}
+
+// WithStartingAfter is a query scope for cursors
+func (d *Database) WithEndingBefore(tableName string, limit uint, before string) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where(tableName+".id < ?", before).Limit(limit)
 	}
 }
