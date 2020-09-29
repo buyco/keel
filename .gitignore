@@ -16,3 +16,7 @@
 
 # Coverfiles
 *.coverprofile
+
+# Local
+.env
+vendor
