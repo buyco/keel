@@ -8,6 +8,10 @@ type Error struct {
 	Code        string      `json:"code"`
 }
 
+func (e Error) Error() string {
+	return e.Message
+}
+
 // FormatAppError generates a new Error struct from params
 func FormatAppError(msg, code, desc string, details interface{}) *Error {
 	return &Error{
