@@ -6,7 +6,7 @@ import (
 )
 
 // ErrorPrintf returns go error from formater
-func ErrorPrintf(str string, args ...interface{}) error {
+func ErrorPrintf(str string, args ...any) error {
 	return fmt.Errorf(str, args...)
 }
 

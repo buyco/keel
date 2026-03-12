@@ -1,7 +1,7 @@
 package helper_test
 
 import (
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
 	. "github.com/buyco/keel/pkg/helper"
@@ -10,7 +10,7 @@ import (
 var _ = Describe("Map", func() {
 
 	var (
-		testMap = map[string]interface{}{"foo": 0}
+		testMap = map[string]any{"foo": 0}
 	)
 
 	It("should copy given map", func() {

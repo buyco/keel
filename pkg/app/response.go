@@ -29,7 +29,7 @@ func (ear *ErrorAPIResponse) GetHTTPCode() int {
 
 // SuccessAPIResponse is a Success response struct
 type SuccessAPIResponse struct {
-	Data         interface{}   `json:"data"`
+	Data         any           `json:"data"`
 	HTTPResponse *HTTPResponse `json:"http_response"`
 }
 
@@ -75,7 +75,7 @@ func FormatAPIError(err *Error, httpCode int) *ErrorAPIResponse {
 }
 
 // FormatAPISuccess is a helper function to generate success response
-func FormatAPISuccess(data interface{}, httpCode int) *SuccessAPIResponse {
+func FormatAPISuccess(data any, httpCode int) *SuccessAPIResponse {
 	return &SuccessAPIResponse{
 		Data: data,
 		HTTPResponse: &HTTPResponse{
