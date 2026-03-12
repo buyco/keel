@@ -12,7 +12,7 @@ jobs:
       ## this will contain a matrix of all of the combinations
       ## we wish to test again:
       matrix:
-        go-version: [1.24.x, 1.25.x, 1.26.x]
+        go-version: [1.25.x, 1.26.x]
         platform: [ubuntu-latest]
 
     ## Defines the platform for each test run
@@ -35,8 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           go mod download
-          go install github.com/onsi/gomega@v1.39.1
-          go install github.com/onsi/ginkgo/ginkgo/v2@v2.28.0
+          go install -mod=mod github.com/onsi/ginkgo/ginkgo/v2@v2.28.0
 
       ## run tests
       - name: Run tests
