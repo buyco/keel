@@ -42,7 +42,7 @@ jobs:
         run: ginkgo -r --randomize-all --randomize-suites --race --trace -coverprofile=cover.out
 
       ## post run
-      - name: Send result code coverage
-        run: |
-          bash tools/codecov/format_coverage.sh
-          bash <(curl -s https://codecov.io/bash) || echo "codecov send failed"
+      - name: Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
