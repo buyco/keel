@@ -2,8 +2,9 @@ package helper
 
 import (
 	"fmt"
-	"github.com/iancoleman/strcase"
 	"reflect"
+
+	"github.com/iancoleman/strcase"
 )
 
 // DeleteValueFromStruct filters struct properties

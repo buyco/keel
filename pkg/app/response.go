@@ -3,12 +3,13 @@ package app
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"strconv"
+
 	"github.com/buyco/keel/pkg/helper"
 	log "github.com/sirupsen/logrus"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
-	"net/http"
-	"strconv"
 )
 
 // Response if an interface to get HTTP code

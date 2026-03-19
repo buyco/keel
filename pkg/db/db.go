@@ -3,8 +3,9 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strings"
+
+	"github.com/jinzhu/gorm"
 
 	// Needed by GORM
 	_ "github.com/jinzhu/gorm/dialects/postgres"

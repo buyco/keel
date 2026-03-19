@@ -1,8 +1,9 @@
 package helper
 
 import (
-	"github.com/joho/godotenv"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 // LoadEnvFile loads env var from file

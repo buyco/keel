@@ -1,10 +1,10 @@
 package helper
 
 import (
+	"reflect"
 	"slices"
 
 	"github.com/thoas/go-funk"
-	"reflect"
 )
 
 // InArray searches for a value from interface

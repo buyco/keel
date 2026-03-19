@@ -1,9 +1,10 @@
 package helper
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
 	"net/url"
+
+	"github.com/gorilla/mux"
 )
 
 // GetRouteVars gets variables from URL
