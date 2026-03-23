@@ -13,7 +13,7 @@ require (
 	github.com/thoas/go-funk v0.9.3
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/sjson v1.2.5
-	google.golang.org/protobuf v1.36.7
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
