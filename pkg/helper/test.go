@@ -2,8 +2,9 @@ package helper
 
 import (
 	"bytes"
-	log "github.com/sirupsen/logrus"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // CaptureStdout is used to get what is logged

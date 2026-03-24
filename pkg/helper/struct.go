@@ -2,17 +2,18 @@ package helper
 
 import (
 	"fmt"
-	"github.com/iancoleman/strcase"
 	"reflect"
+
+	"github.com/iancoleman/strcase"
 )
 
 // DeleteValueFromStruct filters struct properties
 // Solution taken from Sarath Sadasivan Pillai => https://sarathsp.com/
 // Modified for our needs
-func DeleteValueFromStruct(key string, object interface{}) error {
+func DeleteValueFromStruct(key string, object any) error {
 	v := reflect.ValueOf(object)
 	camelizedKey := strcase.ToCamel(key)
-	for v.Kind() == reflect.Ptr {
+	for v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
 	// we only accept structs

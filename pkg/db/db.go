@@ -3,8 +3,9 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strings"
+
+	"github.com/jinzhu/gorm"
 
 	// Needed by GORM
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -22,7 +23,7 @@ func NewDatabase(db *gorm.DB) *Database {
 }
 
 // MigrateDB migrates DB from table structs
-func (d *Database) MigrateDB(tableStruct ...interface{}) error {
+func (d *Database) MigrateDB(tableStruct ...any) error {
 	db := d.DbHandler.AutoMigrate(tableStruct...)
 	if db.Error != nil {
 		log.Error("Unable to migrate db")
@@ -33,7 +34,7 @@ func (d *Database) MigrateDB(tableStruct ...interface{}) error {
 }
 
 // AddForeignKey adds constraints to table
-func (d *Database) AddForeignKey(tableStruct interface{}, field, dest, onDelete, onUpdate string) error {
+func (d *Database) AddForeignKey(tableStruct any, field, dest, onDelete, onUpdate string) error {
 	db := d.DbHandler.Model(tableStruct).AddForeignKey(field, dest, onDelete, onUpdate)
 	if db.Error != nil {
 		log.Error("Unable to create constraint")
@@ -44,7 +45,7 @@ func (d *Database) AddForeignKey(tableStruct interface{}, field, dest, onDelete,
 }
 
 // AddUniqueIndex adds unique index to table
-func (d *Database) AddUniqueIndex(tableStruct interface{}, indexName string, fields ...string) error {
+func (d *Database) AddUniqueIndex(tableStruct any, indexName string, fields ...string) error {
 	db := d.DbHandler.Model(tableStruct).AddUniqueIndex(indexName, fields...)
 	if db.Error != nil {
 		log.Error("Unable to create unique index constraint")
@@ -105,7 +106,7 @@ func (d *Database) DropEnum(enumName string) error {
 }
 
 // CreateTables creates DB tables from table structs
-func (d *Database) CreateTables(tablesStruct ...interface{}) error {
+func (d *Database) CreateTables(tablesStruct ...any) error {
 	db := d.DbHandler.CreateTable(tablesStruct...)
 	if db.Error != nil {
 		log.Errorf("Unable to create tables [%v]", db.Error)

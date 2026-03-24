@@ -2,10 +2,11 @@ package transform
 
 import (
 	"database/sql"
-	"github.com/buyco/keel/pkg/helper"
-	"github.com/golang/protobuf/ptypes/wrappers"
-	"github.com/jinzhu/gorm/dialects/postgres"
 	"strconv"
+
+	"github.com/buyco/keel/pkg/helper"
+	"github.com/jinzhu/gorm/dialects/postgres"
+	wrappers "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 // SQLNullStringToString converts an SQL NullString to a string

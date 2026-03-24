@@ -1,12 +1,14 @@
 package helper
 
 import (
-	"github.com/thoas/go-funk"
 	"reflect"
+	"slices"
+
+	"github.com/thoas/go-funk"
 )
 
 // InArray searches for a value from interface
-func InArray(needle interface{}, haystack interface{}) (bool, int) {
+func InArray(needle any, haystack any) (bool, int) {
 	var exists = false
 	var index = -1
 
@@ -27,12 +29,7 @@ func InArray(needle interface{}, haystack interface{}) (bool, int) {
 
 // StringInSlice searches value in slice
 func StringInSlice(searchVal string, list []string) bool {
-	for _, elt := range list {
-		if elt == searchVal {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(list, searchVal)
 }
 
 // SliceDiff returns a diff between two slice
