@@ -12,7 +12,7 @@ jobs:
       ## this will contain a matrix of all of the combinations
       ## we wish to test again:
       matrix:
-        go-version: [1.25.x, 1.26.x]
+        go-version: [1.26.x]
         platform: [ubuntu-latest]
 
     ## Defines the platform for each test run
@@ -23,19 +23,19 @@ jobs:
     steps:
       ## sets up go based on the version
       - name: Install Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ matrix.go-version }}
 
       ## checks out our code locally so we can work with the files
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       ## install deps
       - name: Install dependencies
         run: |
           go mod download
-          go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo@v2.28.1
+          go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo@v2.32.0
 
       ## run tests
       - name: Run tests
@@ -43,6 +43,6 @@ jobs:
 
       ## post run
       - name: Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
